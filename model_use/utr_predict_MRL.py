@@ -1,3 +1,23 @@
+## 1.notice: for optimus model
+##   Varying_length_25to100_model's "seq_len_limit" should set 100
+##   main_MRL_model's "seq_len_limit" should set 50
+##   retrained_evolution_model's "seq_len_limit" should set 54
+##
+## 2.If the input file is in csv or txt format, the "id_col" is the ID column name of utr, 
+##   the "utr_col" is the column name of the utr sequence
+##
+## 3.model list
+##   optimus_model_dict = {
+##       1: 'Varying_length_25to100_model',
+##       2: 'main_MRL_model',
+##       3: 'retrained_evolution_model'}
+## 
+##   frame_pool_model_dict = {
+##       1: 'utr_model_combined_residual',
+##       2: 'utr_model_combined_residual_noTG',
+##       3: 'utr_model_combined_residual_uORF'}
+
+
 ## Imports
 from importlib import reload
 from pathlib import Path
@@ -32,26 +52,6 @@ from Bio import SeqIO
 
 ## change work path
 os.chdir(sys.path[0])
-
-
-## 1.notice: for optimus model
-##   Varying_length_25to100_model's "seq_len_limit" should set 100
-##   main_MRL_model's "seq_len_limit" should set 50
-##   retrained_evolution_model's "seq_len_limit" should set 54
-##
-## 2.If the input file is in csv or txt format, the "id_col" is the ID column name of utr, 
-##   the "utr_col" is the column name of the utr sequence
-##
-## 3.model list
-##   optimus_model_dict = {
-##       1: 'Varying_length_25to100_model',
-##       2: 'main_MRL_model',
-##       3: 'retrained_evolution_model'}
-## 
-##   frame_pool_model_dict = {
-##       1: 'utr_model_combined_residual',
-##       2: 'utr_model_combined_residual_noTG',
-##       3: 'utr_model_combined_residual_uORF'}
 
 
 ## Converting utr sequence to one-pot matrix 
@@ -205,24 +205,5 @@ def out_mrl_pred(file_in, file_type, optimus_model=1, frame_pool_model=1, pad_or
 
 
 ## test example
-# out_mrl_pred('rh_utr5.fasta', file_type='fasta')
-# out_mrl_pred('test_utr.txt', file_type='txt', id_col='id', utr_col='utr')
-# out_mrl_pred('pred_why_utr.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='name', utr_col='seq', seq_len_limit=100, out_suffix='_SB')
-# out_mrl_pred('all_utr5.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='id', utr_col='utr200', seq_len_limit=100, out_suffix='_200')
-# out_mrl_pred('all_utr_test.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='id', utr_col='utr100', seq_len_limit=100, out_suffix='_100')
-# out_mrl_pred('utr_paper.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='id', utr_col='utr', seq_len_limit=100, out_suffix='_paper')
-# out_mrl_pred('utr5design.txt', file_type='txt', id_col='id', utr_col='utr')
-# out_mrl_pred('原生eGFP_5UTR.fasta', file_type='fasta')
-# out_mrl_pred('utr_paper_selected20.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='id', utr_col='utr', seq_len_limit=100, out_suffix='')
-# out_mrl_pred('all_utr5_dedup.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='id', utr_col='utr', seq_len_limit=100, out_suffix='_100')
-# out_mrl_pred('all_utr5_less100.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='id', utr_col='utr', seq_len_limit=100, out_suffix='')
-# out_mrl_pred('all_utr5_dedup_kozak.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='id', utr_col='utr', seq_len_limit=100, out_suffix='')
-# out_mrl_pred('seq.txt', file_type='fasta')
-# out_mrl_pred('xupan_5utr_2.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='id', utr_col='Ttr', seq_len_limit=100, out_suffix='')
-# out_mrl_pred('MRL_diffusion.txt', file_type='fasta')
-# out_mrl_pred('All_promoter_fragments_Native - 副本.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='Unnamed: 0', utr_col='seq110', seq_len_limit=100, out_suffix='')
-# out_mrl_pred('3merRF_designed_5UTR.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='id', utr_col='UTR5', seq_len_limit=100, out_suffix='')
-# out_mrl_pred('test1.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='id', utr_col='Sequence', seq_len_limit=100, out_suffix='')
-# out_mrl_pred('test1_pred_mrl_selected_in.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col='id', utr_col='Sequence', seq_len_limit=100, out_suffix='')
-out_mrl_pred('result_to_download.csv', optimus_model=1, frame_pool_model=1, file_type='csv', id_col="name", utr_col="5' UTRs", seq_len_limit=100, out_suffix='')
+out_mrl_pred('rh_utr5.fasta', file_type='fasta', optimus_model=1, frame_pool_model=1, id_col="name", seq_len_limit=100, out_suffix='')
 
